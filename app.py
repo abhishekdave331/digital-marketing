@@ -14,7 +14,6 @@ st.header('IMAGE TO TEXT APPLICATION',divider=True)
 st.subheader('Enter the Prompt',divider=True)
 prompt=st.text_input(label='Enter Details',max_chars=10000)
 uploaded_image=st.file_uploader('Upload the Image',type=['jpg','jpeg','png'])
-submit=st.button(label='Build Campaign')
 
 # Image Display
 image=''
