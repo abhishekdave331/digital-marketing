@@ -4,19 +4,36 @@ import google.generativeai as genai
 import os
 import io
 
-# Configure API Key (make sure it's set in environment or manually add here)
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))  # Replace with your key if needed
-
-# Initialize Gemini multimodal model
+# Configure API Key (set in environment or replace directly)
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))  # Or replace with your actual key
 model = genai.GenerativeModel("gemini-1.5-flash")
 
+# Function to get intelligence from model
+def get_image_text(prompt, image):
+    image_bytes = io.BytesIO()
+    image.save(image_bytes, format='PNG')
+    image_bytes.seek(0)
 
-st.header("Image to Text Application", divider=True)
+    response = model.generate_content(
+        [prompt, image_bytes],
+        stream=False,
+    )
+    return response.text.strip()
+
+# Streamlit UI
+st.header("🧠 Image to Text Application", divider=True)
+
+# User inputs
 prompt = st.text_input("Enter the prompt")
-st.file_uploader("Upload an Image", type=["jpg", "jpeg", "png"])
+uploaded_image = st.file_uploader("Upload an Image", type=["jpg", "jpeg", "png"])
 
-image = ""
+# Process on submit
+if prompt and uploaded_image:
+    image = Image.open(uploaded_image)
+    st.image(image, caption="Uploaded Image", use_column_width=True)
 
-if uploaded_image is not None:
-  image = Image.open(uploaded_image)
-  st.image(image)
+    if st.button("Submit"):
+        with st.spinner("Generating response..."):
+            result = get_image_text(prompt, image)
+        st.markdown("### 📝 Output:")
+        st.success(result)
