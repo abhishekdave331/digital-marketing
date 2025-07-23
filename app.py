@@ -15,3 +15,8 @@ st.header("Image to Text Application", divider=True)
 prompt = st.text_input("Enter the prompt")
 st.file_uploader("Upload an Image", type=["jpg", "jpeg", "png"])
 
+image = ""
+
+if uploaded_image is not None:
+  image = Image.open(uploaded_image)
+  st.image(image)
