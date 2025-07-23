@@ -16,7 +16,7 @@ def get_image_text(prompt, image):
     return response.text.strip()
 
 # Streamlit UI
-st.header("🧠 Image to Text Application", divider=True)
+st.header(" Image to Text Application", divider=True)
 
 # User inputs
 prompt = st.text_input("Enter the prompt")
@@ -28,10 +28,6 @@ if prompt and uploaded_image:
     st.image(image, caption="Uploaded Image", use_column_width=True)
 
     if st.button("Submit"):
-        with st.spinner("Generating response..."):
-            try:
                 result = get_image_text(prompt, image)
-                st.markdown("### 📝 Output:")
+                st.markdown("###  Output:")
                 st.success(result)
-            except Exception as e:
-                st.error(f"❌ Error: {e}")
