@@ -5,7 +5,7 @@ import os
 import io
 
 # Configure API Key (set in environment or replace directly)
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))  # Or replace with your actual key
+genai.configure(api_key=AIzaSyCVrrwxoQ5O6TMMCQL_kbfMW9Cpw9LoXcw)  # Or replace with your actual key
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 # Function to get intelligence from model
@@ -21,7 +21,7 @@ def get_image_text(prompt, image):
     return response.text.strip()
 
 # Streamlit UI
-st.header("🧠 Image to Text Application", divider=True)
+st.header("Image to Text Application", divider=True)
 
 # User inputs
 prompt = st.text_input("Enter the prompt")
